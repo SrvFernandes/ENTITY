@@ -1,0 +1,59 @@
+{
+  "base_commit": "6dfa3d6cc738d9369cf092d2782676bf4f2a46e4",
+  "base_release": "v3.4.2",
+  "branch": "remediation/v3.4.3-issue-28",
+  "claim_boundary": [
+    "v3.4.2 remains immutable historical release",
+    "BTDU implementation was not changed by this remediation",
+    "no production state or active 30-day wall-clock evidence was modified",
+    "no external payment, legal entitlement, fair-value, or settlement-bypass claim is introduced",
+    "Rust compiled and real-world training evidence are inherited from v3.4.2 unchanged scope; they were not re-executed as v3.4.3 qualification runs."
+  ],
+  "component_versions": {
+    "BTDU": "3.4.2",
+    "ENTITY_release": "3.4.3"
+  },
+  "files_sha256": {
+    "src/33_Economic_Participation/economic_participation.py": "7911688b8aa2535ae3f744efcf76b62b884a4c276c87c2e0277f07591a9c41df",
+    "src/37_Verifiable_Reality/causal_economic_graph.py": "bc9db5d5576df38b879e6cf4bce807cad8eda0200bf8f3807930089ce10d9541",
+    "tests/test_v343_issue28_regressions.py": "7d7d488c10940864e6496cb90a92ddd847b274acf969926d46dc538de1414e49",
+    "tools/entity_v3_4_cli.py": "7e4a81bb90c503a13e3a93e78dd99da511f30835b20d44857fb78a04e850ef42"
+  },
+  "generated_utc": "2026-09-27T15:30:23.646008+00:00",
+  "inherited_qualification": {
+    "policy": "Inherited only for components and qualification scope unchanged by v3.4.3; not represented as a v3.4.3 re-execution.",
+    "real_world_training_qualification": {
+      "evidence_file": "REAL_WORLD_TRAINING_FINAL_RECEIPT.json",
+      "scope": "Frozen v3.4.2 real-world BTDU training qualification; v3.4.3 does not modify BTDU or that qualified training path.",
+      "sha256": "4d31bc1a3ae8c8ff6dcf096b304914808e27cc60595510cc7088b5af021931ff",
+      "source_release": "v3.4.2",
+      "status": "PASS_INHERITED_UNCHANGED_SCOPE"
+    },
+    "rust_compiled_qualification": {
+      "evidence_file": "RUST_COMPILED_QUALIFIED_RECEIPT_20260926_104527.json",
+      "scope": "Compiled Rust clean-room/conformance qualification; v3.4.3 does not modify the Rust implementation or BTDU component.",
+      "sha256": "96a7b5175dc11e1d881a9a1aa53c3496dac93d182d7072e71ad4982921571754",
+      "source_release": "v3.4.2",
+      "status": "PASS_INHERITED_UNCHANGED_SCOPE"
+    }
+  },
+  "qualification": {
+    "full_source_suite": "279/279 PASS",
+    "full_source_suite_exit": 0,
+    "issue_28_final_module": "76/76 PASS"
+  },
+  "release": "v3.4.3",
+  "remediations": [
+    {
+      "id": "issue-28-derivative-evidence-substitution",
+      "result": "economic occurrence identity separated from evidence identity; exact replay rejected; additional evidence enriches the same occurrence without minting a second obligation; distinct authoritative occurrence_ref values may accrue independently"
+    },
+    {
+      "id": "issue-28-zero-edge-causal-trace",
+      "result": "empty or missing endpoints fail closed; existing-node self reachability is not labeled evidence-bound merely because the path is empty"
+    }
+  ],
+  "schema": "entity-release-remediation-v1",
+  "scope": "Issue #28 bounded economic-attribution and causal-trace remediation",
+  "status": "release-candidate"
+}

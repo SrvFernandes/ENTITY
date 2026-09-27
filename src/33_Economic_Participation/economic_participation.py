@@ -74,6 +74,10 @@ class EconomicParticipationProfile:
               currency TEXT NOT NULL, evidence_sha256 TEXT,
               details_json TEXT NOT NULL, created_at_ms INTEGER NOT NULL,
               signature_json TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS economic_event_evidence(
+              event_id TEXT NOT NULL, evidence_sha256 TEXT NOT NULL,
+              created_at_ms INTEGER NOT NULL,
+              PRIMARY KEY(event_id,evidence_sha256));
             CREATE TABLE IF NOT EXISTS obligations(
               obligation_id TEXT PRIMARY KEY, event_id TEXT NOT NULL,
               payer_entity_id TEXT NOT NULL, recipient_entity_id TEXT NOT NULL,
@@ -359,7 +363,7 @@ class EconomicParticipationProfile:
         return {'event':event,'obligation':obligation,'trade_class':'PRIMARY' if is_primary else 'SECONDARY',
                 'gross_amount_units':gross,'protocol_tax_bps':0}
 
-    def record_derivative_revenue(self,policy_id,payer_entity_id,derivative_ref,gross_amount_units,currency,evidence_sha256,*,occurred_at_ms=None):
+    def record_derivative_revenue(self,policy_id,payer_entity_id,derivative_ref,gross_amount_units,currency,evidence_sha256,*,occurred_at_ms=None,occurrence_ref=None):
         with self._db() as db:
             policy=db.execute('SELECT * FROM participation_policies WHERE policy_id=?',(policy_id,)).fetchone()
         if not policy: raise KeyError('participation policy not found')
@@ -373,12 +377,70 @@ class EconomicParticipationProfile:
             raise ValueError('derivative revenue currency differs from participation policy')
         evidence=require_sha256(evidence_sha256)
         treasury=self._treasury(policy['treasury_id']); bps=int(policy['derivative_participation_bps']); gross=max(0,int(gross_amount_units))
+        authoritative_occurrence_ref=str(occurrence_ref) if occurrence_ref is not None else f"legacy-ms:{occurred}"
+        if not authoritative_occurrence_ref:
+            raise ValueError('authoritative occurrence reference must not be empty')
+        occurrence_identity=sha({
+            'policy_id':policy_id,
+            'payer_entity_id':payer_entity_id,
+            'derivative_ref':str(derivative_ref),
+            'occurrence_ref':authoritative_occurrence_ref,
+        })
+        dedupe_key=f"DERIVATIVE_OCCURRENCE:{policy_id}:{occurrence_identity}"
+        with self._db() as db:
+            existing=db.execute('SELECT * FROM economic_events WHERE dedupe_key=?',(dedupe_key,)).fetchone()
+            if existing is not None:
+                details=json.loads(existing['details_json'])
+                if (existing['event_type']!='DERIVATIVE_COMMERCIAL_REVENUE' or
+                    existing['policy_id']!=policy_id or
+                    existing['actor_entity_id']!=payer_entity_id or
+                    existing['subject_ref']!=str(derivative_ref) or
+                    int(existing['gross_amount_units'])!=gross or
+                    existing['currency']!=currency or
+                    int(details.get('occurred_at_ms',-1))!=occurred):
+                    raise ValueError('authoritative occurrence reference conflicts with existing economic occurrence')
+                already_attached=(
+                    existing['evidence_sha256']==evidence or
+                    db.execute(
+                        'SELECT 1 FROM economic_event_evidence WHERE event_id=? AND evidence_sha256=?',
+                        (existing['event_id'],evidence)
+                    ).fetchone() is not None
+                )
+                if already_attached:
+                    raise ValueError('duplicate/replayed economic event')
+                db.execute(
+                    'INSERT INTO economic_event_evidence(event_id,evidence_sha256,created_at_ms) VALUES(?,?,?)',
+                    (existing['event_id'],evidence,now_ms())
+                )
+                obligation=db.execute('SELECT * FROM obligations WHERE event_id=?',(existing['event_id'],)).fetchone()
+                event={
+                    'schema':'entity-v3-economic-event-v1','event_id':existing['event_id'],'dedupe_key':existing['dedupe_key'],
+                    'event_type':existing['event_type'],'policy_id':existing['policy_id'],'treasury_id':existing['treasury_id'],
+                    'instrument_id':existing['instrument_id'],'actor_entity_id':existing['actor_entity_id'],
+                    'subject_ref':existing['subject_ref'],'gross_amount_units':int(existing['gross_amount_units']),
+                    'currency':existing['currency'],'evidence_sha256':existing['evidence_sha256'],'details':details,
+                    'created_at_ms':int(existing['created_at_ms']),'economic_event_is_evidence_not_market_value':True,
+                    'signature':json.loads(existing['signature_json']),
+                }
+                obligation_body=None if obligation is None else {
+                    'obligation_id':obligation['obligation_id'],'event_id':obligation['event_id'],
+                    'payer_entity_id':obligation['payer_entity_id'],'recipient_entity_id':obligation['recipient_entity_id'],
+                    'amount_units':int(obligation['amount_units']),'currency':obligation['currency'],
+                    'basis':obligation['basis'],'bps':int(obligation['bps']),'status':obligation['status'],
+                    'external_money_movement_verified':bool(obligation['external_verified']),
+                }
+                return {'event':event,'obligation':obligation_body,'protocol_tax_bps':0}
         event,obligation=self._event_with_obligation(
             'DERIVATIVE_COMMERCIAL_REVENUE',policy,treasury,payer_entity_id,derivative_ref,gross,currency,
             {'revenue_amount_asserted_by_payer':True,'methodology':'CONTRACTUAL_BPS','occurred_at_ms':occurred,
-             'policy_bound_at_event_time':True,'atomic_event_obligation':True},
+             'policy_bound_at_event_time':True,'atomic_event_obligation':True,
+             'occurrence_ref':authoritative_occurrence_ref,'occurrence_identity':occurrence_identity,
+             'occurrence_identity_is_evidence_independent':True},
             payer_entity_id,treasury['treasury_entity_id'],gross*bps//10000,'DERIVATIVE_PARTICIPATION',bps,
-            evidence,dedupe_key=f"DERIVATIVE:{policy_id}:{derivative_ref}:{evidence}")
+            evidence,dedupe_key=dedupe_key)
+        with self._db() as db:
+            db.execute('INSERT OR IGNORE INTO economic_event_evidence(event_id,evidence_sha256,created_at_ms) VALUES(?,?,?)',
+                       (event['event_id'],evidence,now_ms()))
         return {'event':event,'obligation':obligation,'protocol_tax_bps':0}
 
     def record_service_revenue(self,treasury_id,payer_entity_id,service_type,amount_units,currency,basis_ref,evidence_sha256=None):

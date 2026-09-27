@@ -122,6 +122,19 @@ class CausalEconomicAttributionGraph:
         return dict(body, signature=sig)
 
     def trace(self, source_node_id: str, target_node_id: str) -> dict:
+        source_node_id = str(source_node_id)
+        target_node_id = str(target_node_id)
+        if (not source_node_id or not target_node_id or
+                not self._node_exists(source_node_id) or
+                not self._node_exists(target_node_id)):
+            return {
+                "connected": False,
+                "path": [],
+                "path_sha256": digest([]),
+                "causal_chain_is_evidence_bound": False,
+                "economic_attribution_is_not_accounting_fair_value": True,
+                "endpoints_valid": False,
+            }
         with sqlite3.connect(self.path) as db:
             db.row_factory = sqlite3.Row
             rows = db.execute("SELECT * FROM edges ORDER BY created_at_ms,edge_id").fetchall()
@@ -138,8 +151,9 @@ class CausalEconomicAttributionGraph:
                     "connected": True,
                     "path": path,
                     "path_sha256": digest(path),
-                    "causal_chain_is_evidence_bound": all(bool(edge["evidence_refs"]) for edge in path),
+                    "causal_chain_is_evidence_bound": bool(path) and all(bool(edge["evidence_refs"]) for edge in path),
                     "economic_attribution_is_not_accounting_fair_value": True,
+                    "endpoints_valid": True,
                 }
             if node in seen:
                 continue
@@ -152,6 +166,7 @@ class CausalEconomicAttributionGraph:
             "path_sha256": digest([]),
             "causal_chain_is_evidence_bound": False,
             "economic_attribution_is_not_accounting_fair_value": True,
+            "endpoints_valid": True,
         }
 
     def graph_root(self) -> str:

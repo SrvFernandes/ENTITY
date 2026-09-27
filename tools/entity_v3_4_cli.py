@@ -20,7 +20,7 @@ package_mod=load("cli_v34_packages","src/39_Implementation_Packages/industry_pac
 sdk_mod=load("cli_v34_sdk","sdk/global_passport_sdk/canonical_global_passport_sdk.py")
 btdu_mod=load("cli_v342_btdu","src/40_BTDU/canonical_btdu.py")
 ORIGIN_BUNDLE=ROOT/"protocol"/"origin"/"ENTITY_PROTOCOL_ORIGIN_BUNDLE.json"
-CURRENT_RELEASE_TAG="v3.4.2"; CURRENT_RELEASE_REF="entity-release:"+CURRENT_RELEASE_TAG
+CURRENT_RELEASE_TAG="v3.4.3"; CURRENT_RELEASE_REF="entity-release:"+CURRENT_RELEASE_TAG
 
 def _current_release_path(explicit=None):
     candidates=[pathlib.Path(explicit)] if explicit else []
@@ -34,7 +34,7 @@ def runtime(state,release_origin_path=None,require_current_release=False):
     bundle=read_json(ORIGIN_BUNDLE); origin_status=origin.install_bundle(bundle,profiles)
     current_path=_current_release_path(release_origin_path); current_status=None
     if current_path: current_status=origin.install_current_release(read_json(current_path),CURRENT_RELEASE_TAG)
-    if require_current_release and not current_status: raise RuntimeError("v3.4.2 current-release origin attestation required; supply --release-origin or use the signed release package")
+    if require_current_release and not current_status: raise RuntimeError("v3.4.3 current-release origin attestation required; supply --release-origin or use the signed release package")
     origin_status=dict(origin_status,current_release_origin=current_status,current_release_origin_path=str(current_path) if current_path else None)
     passports=global_mod.GlobalPassportRegistry(state,identity,fabric,rights,profiles,origin,required_release_ref=CURRENT_RELEASE_REF if require_current_release else None)
     ingestion=ingest_mod.ContinuousProvenanceEngine(state,identity,fabric,evidence,rights,passports,origin.default_release_ref)
@@ -96,7 +96,7 @@ def cmd_ingest(a):
     universe=_btdu_for_controller(a.state,identity,a.controller); receipt=_btdu_receipt(identity,a.controller,a.file,logical)
     btdu_obj=universe.ingest_file(a.file,receipt,logical_path=logical,source_entity_id=a.controller,
                                   controller_entity_id=a.controller,rights_holder_entity_id=a.controller,
-                                  provenance_ref="entity-v3.4.2-ingest:"+logical)
+                                  provenance_ref="entity-v3.4.3-ingest:"+logical)
     binding=universe.passport_binding(btdu_obj["object_ref"])
     out=sdk.ingest_package_file(a.file,a.controller,a.package,read_json(a.config),a.asset_kind,
                                 logical_path=logical,version=a.version,btdu_binding=binding)
@@ -113,9 +113,9 @@ def cmd_origin(a):
     else:
         emit({"installation":status,"default":origin.passport_binding(origin.default_release_ref)})
 def parser():
-    p=argparse.ArgumentParser(prog="entity-v3.4.2",description="ENTITY v3.4.2 Global Passport + BTDU deployment CLI")
+    p=argparse.ArgumentParser(prog="entity-v3.4.3",description="ENTITY v3.4.3 Global Passport + BTDU deployment CLI")
     p.add_argument("--state",required=True,help="ENTITY state directory")
-    p.add_argument("--release-origin",help="signed current-release origin attestation; required for v3.4.2 init/ingest unless bundled sidecar is present")
+    p.add_argument("--release-origin",help="signed current-release origin attestation; required for v3.4.3 init/ingest unless bundled sidecar is present")
     sub=p.add_subparsers(dest="command",required=True)
     x=sub.add_parser("init"); x.add_argument("--name",required=True); x.add_argument("--entity-type",default="organization",choices=sorted(identity_mod.ENTITY_TYPES)); x.add_argument("--alias",action="append",default=[]); x.set_defaults(func=cmd_init)
     x=sub.add_parser("packages"); x.set_defaults(func=cmd_packages)
