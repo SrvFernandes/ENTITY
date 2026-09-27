@@ -2,14 +2,14 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "name": "ENTITY",
-  "version": "3.4.2",
-  "datePublished": "2026-09-26",
-  "description": "Open protocol and reference implementation for persistent digital identity, delegated authority, provenance and evidence, data rights, portable recovery, interoperable economic state, and the Blackmore Technology Data Universe (BTDU).",
+  "version": "3.4.3",
+  "datePublished": "2026-09-27",
+  "description": "Open protocol and reference implementation for sovereign digital authority, persistent identity, delegated authorization, provenance and evidence, data rights, portable recovery, interoperable economic state, and the Blackmore Technology Data Universe (BTDU). ENTITY v3.4.3 is a bounded remediation release; the BTDU component remains version 3.4.2 unchanged.",
   "codeRepository": "https://github.com/blackmore-technology-group/ENTITY",
   "issueTracker": "https://github.com/blackmore-technology-group/ENTITY/issues",
   "license": "https://spdx.org/licenses/Apache-2.0.html",
   "programmingLanguage": ["Python"],
-  "runtimePlatform": "Python 3",
+  "runtimePlatform": "Python 3.11+",
   "identifier": [
     "swh:1:ori:e0331a59768b8ee15f04c47a82341c6f093eb316",
     "swh:1:snp:a08aeb7dcf6fb8905592400fcb005a684c7fcd59"
@@ -32,16 +32,17 @@
     "@type": "Organization",
     "name": "Blackmore Technology Group Limited"
   },
-  "url": "https://blackmore-technology-group.github.io/ENTITY-DOCS/",
+  "url": "https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3",
   "keywords": [
+    "sovereign digital authority",
     "digital identity",
+    "delegated authorization",
     "data provenance",
     "data governance",
     "data rights",
-    "sovereign data",
-    "knowledge graph",
-    "AI governance",
-    "interoperability",
+    "protocol conformance",
+    "clean-room interoperability",
+    "portable recovery",
     "open protocol",
     "BTDU"
   ]

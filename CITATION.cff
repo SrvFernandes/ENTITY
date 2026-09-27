@@ -1,38 +1,40 @@
 cff-version: 1.2.0
-message: "If you use ENTITY in research, engineering, evaluation, or derivative work, please cite this software release."
+message: "If you use ENTITY in research, engineering, evaluation, or derivative work, please cite the exact software release you evaluated."
 title: "ENTITY: Sovereign Digital Authority, Provenance, Data Rights, Recovery and BTDU"
 type: software
 authors:
   - family-names: Blackmore
     given-names: Shawn
     affiliation: "Blackmore Technology Group Limited"
-version: 3.4.2
-date-released: 2026-09-26
+version: 3.4.3
+date-released: 2026-09-27
 license: Apache-2.0
 repository-code: "https://github.com/blackmore-technology-group/ENTITY"
-url: "https://blackmore-technology-group.github.io/ENTITY-DOCS/"
+url: "https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3"
 identifiers:
   - type: swh
     value: "swh:1:ori:e0331a59768b8ee15f04c47a82341c6f093eb316"
     description: "Software Heritage origin identifier for the ENTITY GitHub repository"
   - type: swh
     value: "swh:1:snp:a08aeb7dcf6fb8905592400fcb005a684c7fcd59"
-    description: "Software Heritage snapshot from the first full archival visit on 2026-09-26"
+    description: "Historical Software Heritage snapshot from the first full archival visit on 2026-09-26; this snapshot predates v3.4.3"
 abstract: >-
   ENTITY is an open protocol and reference implementation for persistent digital
   identity, delegated authority, provenance and evidence, rights, portable
-  recovery, and interoperable economic state. ENTITY v3.4.2 introduces the
-  Blackmore Technology Data Universe (BTDU), an ENTITY-governed atom/bond
-  information substrate that preserves protocol authority, rights, provenance,
-  recovery, and economic boundaries.
+  recovery, and interoperable economic state. ENTITY v3.4.3 is a bounded
+  remediation release based on immutable v3.4.2 evidence. The Blackmore
+  Technology Data Universe (BTDU) component remains version 3.4.2 unchanged in
+  ENTITY v3.4.3 and provides an ENTITY-governed atom/bond information substrate
+  connected to authority, rights, provenance, recovery, and economic boundaries.
 keywords:
+  - sovereign digital authority
   - digital identity
+  - delegated authorization
   - data provenance
   - data governance
   - data rights
-  - sovereign data
-  - knowledge graph
-  - AI governance
-  - interoperability
+  - protocol conformance
+  - clean-room interoperability
+  - portable recovery
   - open protocol
   - BTDU
