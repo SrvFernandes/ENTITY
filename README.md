@@ -12,7 +12,7 @@
 
 ENTITY is Blackmore Technology Group's open-source protocol and reference implementation for persistent identity, delegated authority, provenance, evidence, rights, trusted state transitions, portable recovery and data-economic infrastructure.
 
-[**ENTITY v3.4.3 Release**](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3) · [**External Qualification**](https://github.com/blackmore-technology-group/ENTITY/issues/55) · [**ERQ Campaign**](https://github.com/blackmore-technology-group/ENTITY/issues/78) · [**Documentation**](https://blackmore-technology-group.github.io/ENTITY-DOCS/) · [**Conformance Kit**](https://github.com/blackmore-technology-group/ENTITY-Protocol-1.0-Conformance-Kit) · [**Interoperability Challenge**](docs/INTEROPERABILITY_CHALLENGE.md)
+[**15-minute first-run audit**](https://github.com/blackmore-technology-group/ENTITY/issues/80) · [**ENTITY v3.4.3 Release**](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3) · [**External Qualification**](https://github.com/blackmore-technology-group/ENTITY/issues/55) · [**ERQ Campaign**](https://github.com/blackmore-technology-group/ENTITY/issues/78) · [**Documentation**](https://blackmore-technology-group.github.io/ENTITY-DOCS/) · [**Conformance Kit**](https://github.com/blackmore-technology-group/ENTITY-Protocol-1.0-Conformance-Kit) · [**Interoperability Challenge**](docs/INTEROPERABILITY_CHALLENGE.md)
 
 ---
 
@@ -135,6 +135,7 @@ python -m unittest discover -s tests -v
 
 Then choose a narrow path:
 
+- [15-minute first-run audit](https://github.com/blackmore-technology-group/ENTITY/issues/80) — stop at the first broken, stale, ambiguous or platform-specific step and report exactly what happened.
 - [External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
 - [External Repository Qualification campaign](https://github.com/blackmore-technology-group/ENTITY/issues/78)
 - [Reproduce the published Rust baseline](https://github.com/blackmore-technology-group/ENTITY/issues/48)
@@ -168,6 +169,7 @@ ENTITY separates BTG-controlled qualification from evidence that should come fro
 
 Current entry points:
 
+- [#80 — 15-minute first-run audit](https://github.com/blackmore-technology-group/ENTITY/issues/80)
 - [#55 — External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
 - [#78 — External Repository Qualification campaign](https://github.com/blackmore-technology-group/ENTITY/issues/78)
 
@@ -220,6 +222,7 @@ See [SECURITY.md](SECURITY.md).
 ## Documentation and governance
 
 - [ENTITY v3.4.3 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3)
+- [15-minute first-run audit](https://github.com/blackmore-technology-group/ENTITY/issues/80)
 - [Documentation portal](https://blackmore-technology-group.github.io/ENTITY-DOCS/)
 - [Historical v3.4.2 + BTDU documentation](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/)
 - [External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
