@@ -1,0 +1,60 @@
+publiccodeYmlVersion: "0.5.0"
+name: ENTITY
+url: "https://github.com/blackmore-technology-group/ENTITY"
+landingURL: "https://blackmore-technology-group.github.io/ENTITY-DOCS/"
+softwareVersion: "3.4.2"
+releaseDate: "2026-09-26"
+platforms:
+  - linux
+  - windows
+  - mac
+categories:
+  - identity-management
+  - it-security
+  - data-collection
+  - data-analytics
+developmentStatus: stable
+softwareType: "standalone/backend"
+organisation:
+  name: "Blackmore Technology Group Limited"
+  uri: "https://github.com/blackmore-technology-group"
+roadmap: "https://github.com/blackmore-technology-group/ENTITY/issues"
+description:
+  en:
+    localisedName: ENTITY
+    shortDescription: >
+      Open protocol for sovereign digital authority, provenance, data rights,
+      recovery and governed data state.
+    longDescription: >
+      ENTITY is an Apache-2.0 open-source protocol and reference implementation
+      for persistent digital identity, delegated authority, provenance and
+      evidence, explicit rights, portable recovery and interoperable economic
+      state. ENTITY v3.4.2 also introduces the Blackmore Technology Data
+      Universe (BTDU), a governed information topology built from reusable atoms,
+      bonds and compounds while preserving separate authority, provenance,
+      rights and economic boundaries. The protocol does not require a native
+      token, mining or staking. Current public qualification material explicitly
+      distinguishes Blackmore Technology Group-controlled evidence from unrelated
+      external validation.
+    documentation: "https://blackmore-technology-group.github.io/ENTITY-DOCS/"
+    apiDocumentation: "https://blackmore-technology-group.github.io/ENTITY-DOCS/developer/"
+    features:
+      - Persistent sovereign digital identity and delegated authority
+      - Explicit provenance, evidence and claim-state boundaries
+      - Governed data rights and entitlement state
+      - Portable export, backup and recovery semantics
+      - Global Passport and cross-domain profile architecture
+      - Blackmore Technology Data Universe governed topology
+      - Public conformance, reproduction and external qualification challenges
+legal:
+  license: Apache-2.0
+  mainCopyrightOwner: "Blackmore Technology Group Limited"
+maintenance:
+  type: internal
+  contacts:
+    - name: "Blackmore Technology Group Limited"
+      email: "blackmore.technology.group@gmail.com"
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - en
