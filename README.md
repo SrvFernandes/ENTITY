@@ -12,62 +12,75 @@
 
 ENTITY is Blackmore Technology Group's open-source protocol and reference implementation for persistent identity, delegated authority, provenance, evidence, rights, trusted state transitions, portable recovery and data-economic infrastructure.
 
-[**ENTITY v3.4.2 Release**](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.2) · [**External Qualification**](https://github.com/blackmore-technology-group/ENTITY/issues/55) · [**v3.4.2 + BTDU overview**](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/) · [**Documentation**](https://blackmore-technology-group.github.io/ENTITY-DOCS/) · [**Conformance Kit**](https://github.com/blackmore-technology-group/ENTITY-Protocol-1.0-Conformance-Kit) · [**Interoperability Challenge**](docs/INTEROPERABILITY_CHALLENGE.md)
+[**ENTITY v3.4.3 Release**](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3) · [**External Qualification**](https://github.com/blackmore-technology-group/ENTITY/issues/55) · [**ERQ Campaign**](https://github.com/blackmore-technology-group/ENTITY/issues/78) · [**Documentation**](https://blackmore-technology-group.github.io/ENTITY-DOCS/) · [**Conformance Kit**](https://github.com/blackmore-technology-group/ENTITY-Protocol-1.0-Conformance-Kit) · [**Interoperability Challenge**](docs/INTEROPERABILITY_CHALLENGE.md)
 
 ---
 
-## ENTITY v3.4.2 — Canonical BTDU Release
+## ENTITY v3.4.3 — current supported release
 
-**v3.4.2 is the sole current supported canonical ENTITY release.** Earlier releases remain immutable historical provenance and are superseded for current deployment and conformance purposes.
+**ENTITY v3.4.3 is the current supported ENTITY runtime.** It is a bounded remediation release based on the immutable v3.4.2 release. The **BTDU component remains version 3.4.2 unchanged**. v3.4.2 remains immutable historical evidence and is superseded for current deployment.
 
-v3.4.2 introduces the **Blackmore Technology Data Universe (BTDU)** while preserving ENTITY authority, rights, provenance and economic semantics; ADAM deterministic state; NIKI bounded reasoning; BSIE world-state boundaries; BECP governance boundaries; and the Genesis primitives:
+v3.4.3 remediates two reproduced Issue #28 defects:
 
-```text
-ENTITY → AUTHORITY → RIGHT → EVENT → VALUE
-```
+1. derivative-revenue evidence substitution could create a second economic event and obligation for the same occurrence;
+2. a zero-edge causal graph could return a positive self-trace for missing or empty endpoints and label an empty path evidence-bound.
 
-### Published qualification
+The remediation keeps authoritative occurrence identity separate from evidence identity, rejects exact replay, records additional evidence without creating a duplicate obligation, and validates causal-trace endpoints before traversal.
+
+### v3.4.3 qualification
 
 | Evidence | Result |
 | --- | --- |
-| Full regression | **203/203 PASS** |
-| Repository safety | **3/3 PASS** |
-| GitHub dependency review | **PASS** |
-| Public conformance smoke | **PASS** |
-| Protected-state recovery | **PASS** |
-| Exact restore | **true** |
-| Restored sovereign signing | **true** |
-| v3.4.1 origin continuity | **true** |
+| Issue #28 remediation module | **76/76 PASS** |
+| Full repository source suite | **279/279 PASS** |
+| Full source-suite exit code | **0** |
+| Compiled Rust qualification | **PASS — inherited unchanged scope** |
+| Real-world BTDU training qualification | **PASS — inherited unchanged scope** |
 
-Protected release commit: `6dfa3d6cc738d9369cf092d2782676bf4f2a46e4`  
-Release tree: `f90bf74e29899f82d0a4ee321604346241bba4de`  
-Release-origin attestation SHA-256: `0ba4b0cc8c34688d98ef3c3425fbd70ff5b59d26183a18a15506bbad3adea0c1`
+Release merge commit: `528b70aabd05b1e930b77e4933f157731e47274f`  
+Immutable predecessor commit: `6dfa3d6cc738d9369cf092d2782676bf4f2a46e4`
 
-Canonical lineage:
+The v3.4.3 release does **not** rewrite the active 30-day wall-clock evidence campaign or immutable v3.4.2 evidence.
+
+---
+
+## Canonical origin and claim boundary
+
+Canonical ENTITY origin remains:
 
 ```text
-Shawn Blackmore → Blackmore Technology Group → ENTITY → v3.4.2
+Shawn Blackmore → Blackmore Technology Group → ENTITY
 ```
 
-A third party may fork and operate the software independently. A derivative that removes or substitutes the canonical origin lineage does not qualify as canonical ENTITY under the v3.4.2 canonical-status rules.
+Protocol origin is separate from downstream asset ownership, custody and economic entitlement.
 
-Protocol origin remains separate from downstream ownership: canonical origin does not automatically transfer authority over user assets, does not make BTG owner of downstream data, and does not create an automatic protocol royalty.
+```text
+UPSTREAM OWNERSHIP
+        ≠
+BTG FORK CUSTODY
+        ≠
+BTG ENTITY METADATA OWNERSHIP
+        ≠
+ENTITY PROTOCOL ORIGIN
+        ≠
+AUTOMATIC ECONOMIC RIGHTS
+```
+
+ENTITY may record provenance, authorship, copyright, licence, custody, rights metadata and governed relationships. Registration, mirroring, ingestion, verification or custody do not themselves transfer upstream ownership or create automatic economic entitlement.
 
 ---
 
 ## Blackmore Technology Data Universe
 
-BTDU adds an atomic/bonded data architecture in which reusable atoms, bonds and compounds can be connected to ENTITY provenance, authority, rights and economic state.
+BTDU remains **component version 3.4.2** in ENTITY v3.4.3. It provides an atomic/bonded information architecture in which reusable atoms, bonds and compounds can be connected to ENTITY provenance, authority, rights and economic state.
 
 ```text
 Atoms → Bonds → Compounds → Governed Objects → Provenance / Rights / Economic Lineage
 ```
 
-The architecture separates computational/temporary relationships from relationships that need persistent evidentiary, rights or economic significance.
+BTDU is not presented as generic raw-file compression. It is a representation model for structured, semantic and relational information with explicit provenance and rights boundaries.
 
-BTDU is **not** presented as generic raw-file compression. It is a different representation model for structured, semantic and relational information.
-
-[Explore the v3.4.2 + BTDU documentation →](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/)
+Historical v3.4.2 + BTDU documentation remains available at the [v3.4.2 documentation archive](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/).
 
 ---
 
@@ -114,7 +127,7 @@ Python 3.11+ is recommended for the reference implementation.
 ```bash
 git clone https://github.com/blackmore-technology-group/ENTITY.git
 cd ENTITY
-git checkout v3.4.2
+git checkout v3.4.3
 python -m pip install -r requirements.txt
 python -m compileall -q src sdk protocol
 python -m unittest discover -s tests -v
@@ -122,29 +135,13 @@ python -m unittest discover -s tests -v
 
 Then choose a narrow path:
 
-- [Audit the Start Here path from a clean clone](https://github.com/blackmore-technology-group/ENTITY/issues/26)
-- [Reproduce the Rust vector campaign on Linux](https://github.com/blackmore-technology-group/ENTITY/issues/48)
-- [Try a domain package from a clean clone](https://github.com/blackmore-technology-group/ENTITY/issues/46)
+- [External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
+- [External Repository Qualification campaign](https://github.com/blackmore-technology-group/ENTITY/issues/78)
+- [Reproduce the published Rust baseline](https://github.com/blackmore-technology-group/ENTITY/issues/48)
 - [Attempt an independent implementation](docs/INTEROPERABILITY_CHALLENGE.md)
 - [Read the Protocol 1.0 Conformance Kit](https://github.com/blackmore-technology-group/ENTITY-Protocol-1.0-Conformance-Kit)
 
 A reproducible failure, ambiguity, counterexample or portability problem is useful evidence.
-
----
-
-## External promotion qualification
-
-ENTITY v3.4.2 deliberately separates BTG-controlled evidence from qualification that should come from unrelated participants. The umbrella entry point is [External Verification Challenge #55](https://github.com/blackmore-technology-group/ENTITY/issues/55).
-
-Current public qualification calls:
-
-- [#58 — Hardware-backed sovereign key custody](https://github.com/blackmore-technology-group/ENTITY/issues/58)
-- [#59 — Physical multi-host interoperability and recovery](https://github.com/blackmore-technology-group/ENTITY/issues/59)
-- [#60 — Certified-device pilot](https://github.com/blackmore-technology-group/ENTITY/issues/60)
-- [#61 — Independent security audit](https://github.com/blackmore-technology-group/ENTITY/issues/61)
-- [#62 — Independent assessor evidence review and qualification receipt](https://github.com/blackmore-technology-group/ENTITY/issues/62)
-
-Each gate has its own evidence requirements and claim boundary. Passing one gate does not imply that another gate passed. Negative findings, reproducible failures and incomplete results remain useful evidence.
 
 ---
 
@@ -159,7 +156,24 @@ BTG publishes controlled reproducibility baselines in:
 - [Swift](https://github.com/blackmore-technology-group/ENTITY-SWIFT-CLEANROOM)
 - [Java](https://github.com/blackmore-technology-group/ENTITY-JAVA-CLEANROOM)
 
-These repositories are **BTG-controlled reproducibility evidence, not independent third-party validation**. The stronger external milestone remains an implementation authored and controlled by an unrelated engineer or organization using public specifications and sealed conformance material rather than BTG implementation code.
+Some of these repositories deliberately reproduce sealed **v3.4.2** campaigns. Those version labels are historical test-target identifiers and should not be read as statements that v3.4.2 remains the current runtime.
+
+These repositories are **BTG-controlled reproducibility baselines, not independent third-party implementations**. External reproduction of a baseline is meaningful portability/reproducibility evidence, but the stronger milestone remains an implementation independently authored and controlled by an unrelated engineer or organization from the public protocol/specification material.
+
+---
+
+## External qualification status
+
+ENTITY separates BTG-controlled qualification from evidence that should come from unrelated participants.
+
+Current entry points:
+
+- [#55 — External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
+- [#78 — External Repository Qualification campaign](https://github.com/blackmore-technology-group/ENTITY/issues/78)
+
+Historical issues #58–#62 were created against the frozen v3.4.2 target. Their evidence scope remains v3.4.2 unless an issue explicitly states that it has been retargeted to v3.4.3. Historical hashes, tags and receipts are not rewritten simply because the supported runtime advanced.
+
+The active 30-day wall-clock qualification remains time-dependent and was not reset or modified by v3.4.3.
 
 ---
 
@@ -189,26 +203,7 @@ The packages configure one ENTITY sovereignty model; they do not create separate
 - Data bytes do not require artificial scarcity; scarcity can exist in rights, entitlements, capacity, duration, jurisdiction, usage quantity, derivation and participation.
 - Usage does not become realized economic value without the required evidence.
 - Historical signed semantics are superseded, not silently rewritten.
-- An ENTITY identity survives replacement of a device, host, provider or BTG infrastructure.
-
----
-
-## Post-release qualification still open
-
-v3.4.2 does **not** claim completion of the following external ADAM promotion gates:
-
-- `RUST_COMPILED_QUALIFIED`
-- `REAL_WORLD_TRAINING`
-- hardware-backed key custody
-- physical multi-host qualification
-- certified-device pilot
-- 30-day wall-clock operation
-- independent security audit
-- independent assessor receipt
-
-These remain post-release qualification work and do not rewrite the immutable v3.4.2 release artifact.
-
-If post-release training or qualification changes model weights, executables, protocol behavior or other release-critical hashed material, the result is a subsequent candidate/release rather than a modified v3.4.2.
+- An ENTITY identity is intended to survive replacement of a device, host, provider or BTG infrastructure subject to the applicable recovery/qualification evidence.
 
 ---
 
@@ -224,9 +219,11 @@ See [SECURITY.md](SECURITY.md).
 
 ## Documentation and governance
 
+- [ENTITY v3.4.3 release](https://github.com/blackmore-technology-group/ENTITY/releases/tag/v3.4.3)
 - [Documentation portal](https://blackmore-technology-group.github.io/ENTITY-DOCS/)
-- [v3.4.2 + BTDU](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/)
+- [Historical v3.4.2 + BTDU documentation](https://blackmore-technology-group.github.io/ENTITY-DOCS/v342/)
 - [External Verification Challenge](https://github.com/blackmore-technology-group/ENTITY/issues/55)
+- [ERQ campaign](https://github.com/blackmore-technology-group/ENTITY/issues/78)
 - [Engineering evidence](docs/ENGINEERING_EVIDENCE.md)
 - [Interoperability challenge](docs/INTEROPERABILITY_CHALLENGE.md)
 - [Governance](GOVERNANCE.md)
