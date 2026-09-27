@@ -10,6 +10,13 @@
   "license": "https://spdx.org/licenses/Apache-2.0.html",
   "programmingLanguage": ["Python"],
   "runtimePlatform": "Python 3",
+  "identifier": [
+    "swh:1:ori:e0331a59768b8ee15f04c47a82341c6f093eb316",
+    "swh:1:snp:a08aeb7dcf6fb8905592400fcb005a684c7fcd59"
+  ],
+  "sameAs": [
+    "https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/blackmore-technology-group/ENTITY"
+  ],
   "author": [
     {
       "@type": "Person",

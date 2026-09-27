@@ -11,6 +11,13 @@ date-released: 2026-09-26
 license: Apache-2.0
 repository-code: "https://github.com/blackmore-technology-group/ENTITY"
 url: "https://blackmore-technology-group.github.io/ENTITY-DOCS/"
+identifiers:
+  - type: swh
+    value: "swh:1:ori:e0331a59768b8ee15f04c47a82341c6f093eb316"
+    description: "Software Heritage origin identifier for the ENTITY GitHub repository"
+  - type: swh
+    value: "swh:1:snp:a08aeb7dcf6fb8905592400fcb005a684c7fcd59"
+    description: "Software Heritage snapshot from the first full archival visit on 2026-09-26"
 abstract: >-
   ENTITY is an open protocol and reference implementation for persistent digital
   identity, delegated authority, provenance and evidence, rights, portable
